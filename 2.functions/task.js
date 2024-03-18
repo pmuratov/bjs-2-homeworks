@@ -1,6 +1,11 @@
+//функция получает числа
 function getArrayParams(...arr) {
+  return { min: Math.min(...arr), max: Math.max(...arr), avg: +(arr.reduce((a, b) => (a + b), 0) / arr.length).toFixed(2) };
+}
 
-  return { min: min, max: max, avg: avg };
+//функция получает массив
+function getArrayParams(arr) {
+  return { min: Math.min(...arr), max: Math.max(...arr), avg: +(arr.reduce((a, b) => (a + b), 0) / arr.length).toFixed(2) };
 }
 
 function summElementsWorker(...arr) {
