@@ -32,7 +32,7 @@ return accum / counter;
 }
 
 function makeWork (arrOfArr, func) {
-  if(!arr.length) return 0
+  if(!arrOfArr.length) return 0
 
   let maxWorkerResult = -Infinity;
   for (i = 0; i < arrOfArr.length; i++){
