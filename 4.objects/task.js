@@ -1,5 +1,8 @@
 function Student(name, gender, age) {
-  (this.name = name), (this.gender = age), (this.age = age), (marks = []);
+  (this.name = name),
+    (this.gender = gender),
+    (this.age = age),
+    (this.marks = []);
 }
 
 Student.prototype.setSubject = function (subjectName) {
@@ -8,16 +11,17 @@ Student.prototype.setSubject = function (subjectName) {
 
 Student.prototype.addMarks = function (...marks) {
   if (this.hasOwnProperty("marks")) {
-    this[marks] = [...this[marks], marks];
+    this.marks = [...this.marks, ...marks];
   }
 };
 
 Student.prototype.getAverage = function () {
-  if (!this.hasOwnProperty("marks") || !this.marks?.length) {
-    return (
-      this.marks.reduce((prev, mark) => prev + mark, 0) / this.marks.length
-    );
+  let averageGrade = 0;
+  if (this.marks?.length) {
+    averageGrade =
+      this.marks.reduce((prev, mark) => prev + mark, 0) / this.marks.length;
   }
+  return averageGrade;
 };
 
 Student.prototype.exclude = function (reason) {
