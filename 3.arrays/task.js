@@ -3,6 +3,10 @@ function compareArrays(arr1, arr2) {
     return element === arr2[index] && arr1.length === arr2.length;
   });
 }
+//    значением элемента, индексом элемента и массивом, по которому осуществляется проход.
+module.exports = {
+  compareArrays,
+};
 
 function getUsersNamesInAgeRange(users, gender) {
   let peopleFiltered = users.filter((person) => person.gender === gender);
@@ -16,3 +20,7 @@ function getUsersNamesInAgeRange(users, gender) {
     return 0;
   }
 }
+
+module.exports = {
+  getUsersNamesInAgeRange,
+};
