@@ -83,7 +83,7 @@ class Library {
     for (let i = 0; i < this.books.length; i++) {
       console.log(this.books[i].name + "---" + bookName);
       if (this.books[i].name === bookName) {
-        return this.books.splice[(i, 1)];
+        return this.books.splice(i, 1)[0];
       }
     }
     if (this.books.length === initialLength) {
@@ -92,17 +92,14 @@ class Library {
   }
 }
 /*
-  findBookBy(type, value){
-    this.books.forEach(el => {
-      for(var prop in el){
-        console.log(el[prop])
-        if(el.prop === type && el[prop] === value){
-          return el
-        } else {
-          return null;
-        }
+ findBookBy(type, value) {
+    let book = null;
+    this.books.forEach((el) => {
+      if (el[type] === value) {
+        book = el;
       }
     });
+    return book;
   }
 */
 
