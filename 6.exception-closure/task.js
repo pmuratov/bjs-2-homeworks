@@ -36,7 +36,7 @@ class Triangle {
     const p = (this.a + this.b + this.c) * 0.5;
     const s = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
 
-    return Math.floor(s * 100) / 100;
+    return Math.floor(s * 1000) / 1000;
   }
 }
 
@@ -55,7 +55,7 @@ function getTriangle(a, b, c) {
   }
 }
 
-let triangle = new Triangle(10, 10, 10);
+let triangle = new Triangle(2, 5, 5);
 let funcTriangle = getTriangle(10, 10, 10);
 
 console.log(triangle, "   ", triangle.area, "   ", triangle.perimeter);
