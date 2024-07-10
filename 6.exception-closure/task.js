@@ -34,7 +34,9 @@ class Triangle {
   }
   get area() {
     const p = (this.a + this.b + this.c) * 0.5;
-    return Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
+    const s = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
+
+    return Math.floor(s * 100) / 100;
   }
 }
 
