@@ -32,7 +32,7 @@ class Triangle {
     const p = this.perimeter * 0.5;
     const s = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
 
-    return +((s * 1000) / 1000).toFixed(3);
+    return +(s.toFixed(3);
   }
 }
 
