@@ -73,7 +73,7 @@ class AlarmClock {
 
   resetAllCalls() {
     this.alarmCollection.forEach((elem) => {
-      elem.canCall = true;
+      elem.canCall = false;
     });
   }
 
@@ -84,10 +84,10 @@ class AlarmClock {
 
 let test = new AlarmClock();
 
-test.addClock("16:45", () => console.log("Wake up!"));
-test.addClock("16:50", () => console.log("Wake up!!"));
-test.addClock("16:55", () => console.log("Wake up!!!"));
-test.addClock("17:00", () => console.log("Wake up!!!!"));
+test.addClock("17:00", () => console.log("Wake up!"));
+test.addClock("17:01", () => console.log("Wake up!!"));
+test.addClock("17:02", () => console.log("Wake up!!!"));
+test.addClock("17:03", () => console.log("Wake up!!!!"));
 
 test.start();
 console.log(test);
