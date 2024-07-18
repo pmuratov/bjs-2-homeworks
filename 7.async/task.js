@@ -1,24 +1,28 @@
 class AlarmClock {
   constructor() {
     this.alarmCollection = [];
-    this.intervalId;
+    this.intervalId = undefined;
   }
 
   addClock(time, callback) {
     if (!time || !callback) {
       throw new Error("Отсутствуют обязательные аргументы");
     } else {
+      let error = false;
+
       this.alarmCollection.forEach((elem) => {
         if (elem.time === time) {
           console.warn("Уже присутствует звонок на это же время");
-        } else {
-          alarmCollection.push({
-            time: time,
-            callback: callback,
-            canCall: true,
-          });
+          error = true;
         }
       });
+      if (!error) {
+        this.alarmCollection.push({
+          time: time,
+          callback: callback,
+          canCall: true,
+        });
+      }
     }
   }
 
@@ -32,11 +36,16 @@ class AlarmClock {
   }
 
   getCurrentFormattedTime() {
-    var d = new Date(date);
-    var hours = "" + d.getHours();
-    var minutes = "" + d.getMinutes();
+    let timezoneOffset = new Date().getTimezoneOffset() / 60;
+    //    console.log(timezoneOffset) //почему ноль то ??
+
+    let d = new Date(
+      new Date(new Date().setHours(new Date().getHours() - timezoneOffset))
+    );
+    let hours = "" + d.getHours();
+    let minutes = "" + d.getMinutes();
     if (minutes.length < 2 || minutes === 0) minutes = "0" + minutes;
-    var time = [hours, minutes].join(":");
+    let time = [hours, minutes].join(":");
 
     return time;
   }
@@ -72,3 +81,13 @@ class AlarmClock {
     this.alarmCollection = [];
   }
 }
+
+let test = new AlarmClock();
+
+test.addClock("16:45", () => console.log("Wake up!"));
+test.addClock("16:50", () => console.log("Wake up!!"));
+test.addClock("16:55", () => console.log("Wake up!!!"));
+test.addClock("17:00", () => console.log("Wake up!!!!"));
+
+test.start();
+console.log(test);
