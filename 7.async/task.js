@@ -7,17 +7,16 @@ class AlarmClock {
   addClock(time, callback) {
     if (!time || !callback) {
       throw new Error("Отсутствуют обязательные аргументы");
-    } else {
-      if (this.alarmCollection.some((elem) => elem.time === time)) {
-        console.warn("Уже присутствует звонок на это же время");
-      }
-
-      this.alarmCollection.push({
-        time: time,
-        callback: callback,
-        canCall: true,
-      });
     }
+    if (this.alarmCollection.some((elem) => elem.time === time)) {
+      console.warn("Уже присутствует звонок на это же время");
+    }
+
+    this.alarmCollection.push({
+      time: time,
+      callback: callback,
+      canCall: true,
+    });
   }
 
   removeClock(time) {
@@ -29,28 +28,33 @@ class AlarmClock {
     }
   }
 
+  removeClock(time) {
+    this.alarmCollection.filter((alarm) => {
+      alarm.time != time;
+    });
+  }
+
   getCurrentFormattedTime() {
-    return new Date().toLocaleTimeString();
+    return new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   }
 
   start() {
     if (this.intervalId) {
       return;
     }
-    (this.intervalId = setInterval(() => {
+    this.intervalId = setInterval(() => {
       this.alarmCollection.forEach((elem) => {
         if (elem.time === this.getCurrentFormattedTime() && elem.canCall) {
           elem.canCall = false;
           elem.callback();
         }
       });
-    })),
-      1000;
+    }, 1000);
   }
-  /*
-      Проверьте скобки интервала…Значение 1000 должно передаваться после колбека в интервал, а присвоение не нужно оборачивать в скобки.
 
-*/
   stop() {
     clearInterval(this.intervalId);
     this.intervalId = null;
