@@ -29,9 +29,9 @@ class AlarmClock {
   }
 
   removeClock(time) {
-    this.alarmCollection.filter((alarm) => {
-      alarm.time != time;
-    });
+    this.alarmCollection = this.alarmCollection.filter(
+      (alarm) => alarm.time != time
+    );
   }
 
   getCurrentFormattedTime() {
@@ -82,6 +82,11 @@ test.addClock("17:00", () => console.log("Wake up!"));
 test.addClock("17:01", () => console.log("Wake up!!"));
 test.addClock("17:02", () => console.log("Wake up!!!"));
 test.addClock("17:03", () => console.log("Wake up!!!!"));
+console.log(test.alarmCollection);
 
-test.start();
+test.removeClock("17:00");
+console.log(test.alarmCollection);
+
 console.log(test.getCurrentFormattedTime());
+//test.start();
+//console.log(test);
