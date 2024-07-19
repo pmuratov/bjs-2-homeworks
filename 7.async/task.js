@@ -35,10 +35,14 @@ class AlarmClock {
   }
 
   getCurrentFormattedTime() {
+    /*
     return new Date().toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
     });
+    */
+    let d = new Date();
+    return [d.getHours(), d.getMinutes()].join(":");
   }
 
   start() {
@@ -80,4 +84,4 @@ test.addClock("17:02", () => console.log("Wake up!!!"));
 test.addClock("17:03", () => console.log("Wake up!!!!"));
 
 test.start();
-console.log(test);
+console.log(test.getCurrentFormattedTime());
