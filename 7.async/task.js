@@ -1,29 +1,22 @@
 class AlarmClock {
   constructor() {
     this.alarmCollection = [];
-    let intervalId;
-    this.intervalId = intervalId;
+    this.intervalId = null;
   }
 
   addClock(time, callback) {
     if (!time || !callback) {
       throw new Error("Отсутствуют обязательные аргументы");
     } else {
-      let error = false;
-
-      this.alarmCollection.forEach((elem) => {
-        if (elem.time === time) {
-          console.warn("Уже присутствует звонок на это же время");
-          error = true;
-        }
-      });
-      if (!error) {
-        this.alarmCollection.push({
-          time: time,
-          callback: callback,
-          canCall: true,
-        });
+      if (this.alarmCollection.some((elem) => elem.time === time)) {
+        console.warn("Уже присутствует звонок на это же время");
       }
+
+      this.alarmCollection.push({
+        time: time,
+        callback: callback,
+        canCall: true,
+      });
     }
   }
 
@@ -37,36 +30,27 @@ class AlarmClock {
   }
 
   getCurrentFormattedTime() {
-    let timezoneOffset = new Date().getTimezoneOffset() / 60;
-    //    console.log(timezoneOffset) //почему ноль то ??
-
-    let d = new Date(
-      new Date(new Date().setHours(new Date().getHours() - timezoneOffset))
-    );
-    let hours = "" + d.getHours();
-    let minutes = "" + d.getMinutes();
-    if (minutes.length < 2 || minutes === 0) minutes = "0" + minutes;
-    let time = [hours, minutes].join(":");
-
-    return time;
+    return new Date().toLocaleTimeString();
   }
 
   start() {
     if (this.intervalId) {
       return;
-    } else {
-      (this.intervalId = setInterval(() => {
-        this.alarmCollection.forEach((elem) => {
-          if (elem.time === this.getCurrentFormattedTime() && elem.canCall) {
-            elem.canCall = false;
-            elem.callback();
-          }
-        });
-      })),
-        1000;
     }
+    (this.intervalId = setInterval(() => {
+      this.alarmCollection.forEach((elem) => {
+        if (elem.time === this.getCurrentFormattedTime() && elem.canCall) {
+          elem.canCall = false;
+          elem.callback();
+        }
+      });
+    })),
+      1000;
   }
+  /*
+      Проверьте скобки интервала…Значение 1000 должно передаваться после колбека в интервал, а присвоение не нужно оборачивать в скобки.
 
+*/
   stop() {
     clearInterval(this.intervalId);
     this.intervalId = null;
@@ -80,6 +64,7 @@ class AlarmClock {
 
   clearAlarms() {
     this.alarmCollection = [];
+    this.stop();
   }
 }
 
